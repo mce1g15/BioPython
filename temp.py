@@ -19,9 +19,7 @@ from operator import add
 import scipy
 from scipy.optimize import curve_fit
 import numpy as np
-import matplotlib.pyplot as plt
-import math
-import scipy
+
 
 
 def walk(n):
