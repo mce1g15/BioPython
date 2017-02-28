@@ -25,47 +25,34 @@ import scipy
 
 
 def walk(n):
-    '''
-    n = number of substates that we want the system to have
-        I should run this several time, changing some parameters
-        to see: a) what is the minimal number of states/substates
-        that I need in order to get a precise simulation (i.e.
-        we can compare the resulting histogram.) b) if there are
-        differences between using few states or a lot. Maybe with few
-        the simulation does not agree with the lognormal distribution.
-    '''
-    time = 0   # we set time equal to zero, later we'll add the times.
-    i = 0    # i indicates the position among the states
+
+    time = 0  
+    i = 0    
     while i < n:
-        if i == 0:      #at position 0 we just go right
-            r = random.random()   # random number between 0 and 1
-            t = -log(1-r,e)    # Gillespie: t is the time for the change of state
-            time = time+t     # add the time of the first step to the time counter
+        if i == 0:      
+            r = random.random()  
+            t = -log(1-r,e)  
+            time = time+t  
             i=i+1
         
-        elif i !=0 and i!=n-1 :  # the particle is not at the extremes
+        elif i !=0 and i!=n-1 :  
             r_2 = random.random()
             t_2 = -log(1-r_2,e)
             time = time+t_2
             
-            R = random.random()   # Notice that in this case I am basically saying
-            if 0 <= R < 0.5:     # that I have 50% going right, 50% going left. I should change this in the future
-                i = i -1    # goes left
+            R = random.random()   
+            if 0 <= R < 0.5:    
+                i = i -1    
             elif 0.5 <= R <=1:
-                i=i+1     # goes right
-        else:   # the particle is at position n
+                i=i+1    
+        else:   
             i = n
     return time
 
 
 
 def many_walks(n,m):
-    '''
-    repeats n-walks m times
-    and stores all the times in a vector, it will
-    be used to plot, later.
-    '''
-    v_t = []    # vector of times
+    v_t = []    
     for i in range(m):
         w = walk(n)
         v_t.append(w)
@@ -88,6 +75,7 @@ xx = np.linspace(0.1,2000,10000)
 
     
 popt, pcov = curve_fit(func, bins, many_walks(n,m))        
+# I would like to use curve_fit to find s such that func fitts the curve
 '''
 x = np.linspace(0,2000,10000)       
 y = func(x,*popt)
