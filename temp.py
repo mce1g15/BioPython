@@ -56,18 +56,20 @@ def many_walks(n,m):
         v_t.append(w)
     
     return v_t    
-        
+# So up till here, I managed to generate the vector that I want, i.e. v_t        
 n = 20
 m = 2000     
 bins =  [10*i for i in range(2000)]    
 numpy_hist = plt.figure()        
 plt.hist(many_walks(n,m), bins)
-
+# Up till here, I have basically plotted a histogram using the vector v_t. (on python, the histogram comes out so it should be correct)
 def func(x,s):
     x = np.array(x)
     return (4/(x*np.sqrt(np.pi*n*s)))*np.exp(-(np.log(x)**2)/(2*n*s))
+#Up until here I defined the function func, this is the function that I want to fit on my histogram. Notice that there is also a parameter n
+# this n is exactly the same n that we have in walks(n) and many_walks(n,m). But as you see I've specified n =20, so that should be fine I think.
 
-xx = np.linspace(0.1,2000,10000)
+xx = np.linspace(0.1,2000,10000)  # I made this in order to plot the function func but no idea if it will work tbh. After Here I got lost
 
 
 
